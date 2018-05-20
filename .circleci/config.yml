@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get -y install wget
+      - run: sudo apt-get -y install unzip
+      - run: make flavour="" all_comp
+  build-install:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get -y install wget
+      - run: sudo apt-get -y install unzip
+      - run: make flavour="--install" all_comp
+  build-fast:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get -y install wget
+      - run: sudo apt-get -y install unzip
+      - run: make flavour="--fast" all_comp
+  build-test:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get -y install wget
+      - run: sudo apt-get -y install unzip
+      - run: make flavour="--test" all_comp
+workflows:
+  version: 2
+  popcat_builds:
+    jobs:
+      - build
+      - build-install
+      - build-fast
+      - build-test
+
